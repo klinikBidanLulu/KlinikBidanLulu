@@ -55,7 +55,7 @@
         <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-cyan-500 text-white flex items-center justify-center shadow-lg shadow-brand-500/30">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
         </span>
-        <span class="text-lg font-bold text-slate-800">Klinik<span class="text-brand-600"> Bidan Lulu</span></span>
+        <span class="text-lg font-bold text-slate-800">Klinik<span class="text-brand-600"> Sehat</span></span>
       </a>
 
       <ul class="hidden md:flex items-center gap-8 text-sm font-medium">
@@ -485,6 +485,33 @@
     }
     btn.addEventListener('click', () => toggleMenu());
     menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(true)));
+  </script>
+
+  <!-- ================= FIREBASE ================= -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDp4sRoFKh_6EnuINbaPxCeq75izHw6FaE",
+      authDomain: "klinik-bidan-lulu-1b7d6.firebaseapp.com",
+      projectId: "klinik-bidan-lulu-1b7d6",
+      storageBucket: "klinik-bidan-lulu-1b7d6.firebasestorage.app",
+      messagingSenderId: "830365339294",
+      appId: "1:830365339294:web:4017707ca15aa532fe758f",
+      measurementId: "G-LW93LEMVKM"
+    };
+
+    // Inisialisasi Firebase
+    const app = initializeApp(firebaseConfig);
+
+    // Analytics (dibungkus try/catch agar halaman tetap jalan
+    // jika dibuka lewat file:// atau diblokir ad-blocker)
+    try {
+      const analytics = getAnalytics(app);
+    } catch (err) {
+      console.warn("Firebase Analytics tidak aktif:", err);
+    }
   </script>
 </body>
 </html>
