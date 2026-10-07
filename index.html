@@ -28,12 +28,27 @@
     }
   </script>
 
+  <!-- Pola tata letak yang dipakai berulang -->
+  <style type="text/tailwindcss">
+    @layer components {
+      .wrap     { @apply max-w-6xl mx-auto px-5; }
+      .section  { @apply py-16 md:py-24 scroll-mt-16; }
+      .head     { @apply text-center max-w-xl mx-auto mb-12; }
+      .eyebrow  { @apply text-sm font-semibold text-brand-600 uppercase tracking-widest; }
+      .title    { @apply mt-2 text-3xl md:text-4xl font-bold text-slate-900 tracking-tight; }
+      .lead     { @apply mt-3 text-slate-500; }
+      .label    { @apply block text-sm font-medium text-slate-700 mb-1.5; }
+      .field    { @apply w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-base text-slate-800 placeholder-slate-400 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-200 transition; }
+      .chip     { @apply inline-flex items-center text-xs text-slate-600 bg-white border border-slate-200 rounded-full px-2.5 py-1; }
+    }
+  </style>
+
   <style>
     html { scroll-behavior: smooth; }
     summary::-webkit-details-marker { display: none; }
     @keyframes floaty {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+      50% { transform: translateY(-8px); }
     }
     .floaty { animation: floaty 4s ease-in-out infinite; }
     .floaty-delay { animation: floaty 5s ease-in-out infinite; animation-delay: 1.2s; }
@@ -48,14 +63,19 @@
 
 <body class="font-sans bg-slate-50 text-slate-600 antialiased overflow-x-hidden">
 
-  <!-- ================= NAVBAR (Glassmorphism) ================= -->
+  <!-- Ikon bintang (dipakai berulang) -->
+  <svg class="absolute w-0 h-0" aria-hidden="true">
+    <symbol id="star" viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.9L12 2z"/></symbol>
+  </svg>
+
+  <!-- ================= NAVBAR ================= -->
   <header class="sticky top-0 z-50 bg-white/70 backdrop-blur-xl border-b border-white/60 shadow-sm">
-    <nav class="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
+    <nav class="wrap h-16 flex items-center justify-between">
       <a href="#beranda" class="flex items-center gap-2">
         <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-cyan-500 text-white flex items-center justify-center shadow-lg shadow-brand-500/30">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
         </span>
-        <span class="text-lg font-bold text-slate-800">Klinik<span class="text-brand-600"> Bidan Lulu</span></span>
+        <span class="text-lg font-bold text-slate-800">Klinik<span class="text-brand-600"> Sehat</span></span>
       </a>
 
       <ul class="hidden md:flex items-center gap-8 text-sm font-medium">
@@ -66,7 +86,7 @@
         <li><a href="#kontak" class="hover:text-brand-600 transition-colors">Kontak</a></li>
       </ul>
 
-      <a href="https://wa.me/628123456789?text=Halo%20Admin,%20saya%20ingin%20buat%20janji%20temu" target="_blank" rel="noopener noreferrer"
+      <a href="#janji"
          class="hidden md:inline-flex bg-slate-900 hover:bg-brand-600 text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors shadow-lg shadow-slate-900/10">
         Buat Janji
       </a>
@@ -80,15 +100,14 @@
 
     <!-- Mobile menu -->
     <div id="mobileMenu" class="hidden md:hidden border-t border-slate-100 bg-white/90 backdrop-blur-xl">
-      <ul class="px-5 py-4 space-y-1 text-sm font-medium">
+      <ul class="wrap py-4 space-y-1 text-sm font-medium">
         <li><a href="#layanan" class="block px-3 py-2.5 rounded-lg hover:bg-brand-50">Layanan</a></li>
         <li><a href="#jadwal" class="block px-3 py-2.5 rounded-lg hover:bg-brand-50">Jadwal</a></li>
         <li><a href="#testimoni" class="block px-3 py-2.5 rounded-lg hover:bg-brand-50">Testimoni</a></li>
         <li><a href="#faq" class="block px-3 py-2.5 rounded-lg hover:bg-brand-50">FAQ</a></li>
         <li><a href="#kontak" class="block px-3 py-2.5 rounded-lg hover:bg-brand-50">Kontak</a></li>
         <li class="pt-2">
-          <a href="https://wa.me/628123456789?text=Halo%20Admin,%20saya%20ingin%20buat%20janji%20temu" target="_blank" rel="noopener noreferrer"
-             class="block text-center bg-brand-600 text-white font-semibold px-5 py-3 rounded-full">Buat Janji</a>
+          <a href="#janji" class="block text-center bg-brand-600 text-white font-semibold px-5 py-3 rounded-full">Buat Janji</a>
         </li>
       </ul>
     </div>
@@ -96,16 +115,17 @@
 
   <main>
     <!-- ================= HERO ================= -->
-    <section id="beranda" class="relative scroll-mt-16 overflow-hidden">
-      <!-- dekorasi blur -->
+    <section id="beranda" class="relative section overflow-hidden !py-12 md:!py-24">
       <div class="absolute -top-24 -left-24 w-96 h-96 bg-brand-200/50 rounded-full blur-3xl"></div>
       <div class="absolute top-40 -right-24 w-96 h-96 bg-cyan-200/50 rounded-full blur-3xl"></div>
 
-      <div class="relative max-w-6xl mx-auto px-5 py-14 md:py-24 grid md:grid-cols-2 gap-12 items-center">
+      <div class="wrap relative grid md:grid-cols-2 gap-10 md:gap-12 items-center">
         <!-- Teks -->
         <div data-aos="fade-up">
+          <!-- Badge status buka/tutup (otomatis) -->
           <span class="inline-flex items-center gap-2 bg-white shadow-sm border border-brand-100 text-brand-700 text-xs font-semibold px-3.5 py-1.5 rounded-full">
-            <span class="w-2 h-2 rounded-full bg-brand-500"></span> Buka setiap hari 08.00 – 20.00
+            <span id="statusDot" class="w-2 h-2 rounded-full bg-brand-500"></span>
+            <span id="statusText">Buka setiap hari 08.00 – 20.00</span>
           </span>
           <h1 class="mt-5 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-[1.1] tracking-tight">
             Kesehatan Anda, <span class="text-gradient">Prioritas Kami.</span>
@@ -113,8 +133,9 @@
           <p class="mt-5 text-base md:text-lg text-slate-500 max-w-lg leading-relaxed">
             Layanan medis modern dengan dokter berpengalaman dan suasana yang nyaman. Cukup buat janji, kami siap merawat Anda dan keluarga.
           </p>
+
           <div class="mt-8 flex flex-col sm:flex-row gap-3">
-            <a href="https://wa.me/628123456789?text=Halo%20Admin,%20saya%20ingin%20buat%20janji%20temu" target="_blank" rel="noopener noreferrer"
+            <a href="#janji"
                class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-brand-600 to-cyan-600 text-white font-semibold px-7 py-3.5 rounded-full shadow-lg shadow-brand-600/30 hover:shadow-xl hover:shadow-brand-600/40 hover:-translate-y-0.5 transition-all duration-300">
               Buat Janji
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -132,32 +153,32 @@
           </div>
         </div>
 
-        <!-- Gambar + floating badge -->
-        <div class="relative" data-aos="fade-up" data-aos-delay="150">
-          <div class="relative rounded-[2rem] overflow-hidden shadow-2xl shadow-brand-900/10 ring-8 ring-white bg-gradient-to-br from-brand-100 to-cyan-100 aspect-[4/5] sm:aspect-[5/5]">
-            <img src="WhatsApp Image 2026-10-05 at 23.19.58.jpeg"
+        <!-- Gambar -->
+        <div data-aos="fade-up" data-aos-delay="150">
+          <div class="relative rounded-[2rem] overflow-hidden shadow-2xl shadow-brand-900/10 ring-8 ring-white bg-gradient-to-br from-brand-100 to-cyan-100 aspect-[4/3] md:aspect-square">
+            <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=1000&q=80"
                  alt="Dokter ramah di Klinik Sehat" class="w-full h-full object-cover" loading="eager">
-          </div>
 
-          <!-- Badge 1 -->
-          <div class="floaty absolute -left-3 sm:-left-8 bottom-10 bg-white/90 backdrop-blur rounded-2xl shadow-xl px-4 py-3 flex items-center gap-3">
-            <span class="w-11 h-11 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
-            </span>
-            <div>
-              <p class="text-lg font-extrabold text-slate-900 leading-none">1000+</p>
-              <p class="text-xs text-slate-500 mt-1">Pasien Terbantu</p>
+            <!-- Badge 1 -->
+            <div class="floaty absolute left-4 bottom-4 bg-white/90 backdrop-blur rounded-2xl shadow-xl px-4 py-3 flex items-center gap-3">
+              <span class="w-11 h-11 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+              </span>
+              <div>
+                <p class="text-lg font-extrabold text-slate-900 leading-none">1000+</p>
+                <p class="text-xs text-slate-500 mt-1">Pasien Terbantu</p>
+              </div>
             </div>
-          </div>
 
-          <!-- Badge 2 -->
-          <div class="floaty-delay absolute -right-2 sm:-right-6 top-8 bg-white/90 backdrop-blur rounded-2xl shadow-xl px-4 py-3 flex items-center gap-3">
-            <span class="w-11 h-11 rounded-xl bg-amber-100 text-amber-500 flex items-center justify-center">
-              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 7L12 17.8 5.8 21.200l1.400-7L2 9.400l7-.9L12 2z"/></svg>
-            </span>
-            <div>
-              <p class="text-lg font-extrabold text-slate-900 leading-none">4.9</p>
-              <p class="text-xs text-slate-500 mt-1">Ulasan Pasien</p>
+            <!-- Badge 2 -->
+            <div class="floaty-delay absolute right-4 top-4 bg-white/90 backdrop-blur rounded-2xl shadow-xl px-4 py-3 flex items-center gap-3">
+              <span class="w-11 h-11 rounded-xl bg-amber-100 text-amber-500 flex items-center justify-center">
+                <svg class="w-6 h-6" fill="currentColor"><use href="#star"/></svg>
+              </span>
+              <div>
+                <p class="text-lg font-extrabold text-slate-900 leading-none">4.9</p>
+                <p class="text-xs text-slate-500 mt-1">Ulasan Pasien</p>
+              </div>
             </div>
           </div>
         </div>
@@ -165,83 +186,97 @@
     </section>
 
     <!-- ================= LAYANAN ================= -->
-    <section id="layanan" class="max-w-6xl mx-auto px-5 py-16 md:py-24 scroll-mt-16">
-      <div class="text-center max-w-xl mx-auto" data-aos="fade-up">
-        <p class="text-sm font-semibold text-brand-600 uppercase tracking-widest">Layanan</p>
-        <h2 class="mt-2 text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">Perawatan lengkap untuk seluruh keluarga</h2>
-        <p class="mt-3 text-slate-500">Empat layanan utama yang kami tangani dengan standar profesional dan penuh perhatian.</p>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
-        <!-- Poli Umum -->
-        <div data-aos="fade-up" data-aos-delay="0" class="group bg-white rounded-2xl p-7 border border-slate-100 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-          <div class="w-14 h-14 rounded-2xl bg-brand-50 text-brand-600 group-hover:bg-brand-600 group-hover:text-white flex items-center justify-center transition-colors duration-300">
-            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4.8 2.3A.3.3 0 105 2H4a2 2 0 00-2 2v5a6 6 0 006 6 6 6 0 006-6V4a2 2 0 00-2-2h-1a.2.2 0 10.3.3"/><path d="M8 15v1a6 6 0 006 6 6 6 0 006-6v-4"/><circle cx="20" cy="10" r="2"/></svg>
-          </div>
-          <h3 class="mt-5 text-lg font-semibold text-slate-900">Poli Umum</h3>
-          <p class="mt-2 text-sm text-slate-500 leading-relaxed">Pemeriksaan, konsultasi, dan pengobatan untuk keluhan kesehatan sehari-hari.</p>
+    <section id="layanan" class="section">
+      <div class="wrap">
+        <div class="head" data-aos="fade-up">
+          <p class="eyebrow">Layanan</p>
+          <h2 class="title">Perawatan lengkap untuk seluruh keluarga</h2>
+          <p class="lead">Empat layanan utama yang kami tangani dengan standar profesional dan penuh perhatian.</p>
         </div>
 
-        <!-- Poli Gigi -->
-        <div data-aos="fade-up" data-aos-delay="100" class="group bg-white rounded-2xl p-7 border border-slate-100 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-          <div class="w-14 h-14 rounded-2xl bg-cyan-50 text-cyan-600 group-hover:bg-cyan-600 group-hover:text-white flex items-center justify-center transition-colors duration-300">
-            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M7 3C4.5 3 3 5 3 7.5c0 3 1.5 4 2 7 .4 2.500 1 6.500 2.500 6.500S9 17 12 17s3 4.500 4.500 4.500S18.600 17 19 14.500c.5-3 2-4 2-7C21 5 19.500 3 17 3c-2 0-3 1-5 1S9 3 7 3z"/></svg>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Poli Umum -->
+          <div data-aos="fade-up" class="group bg-white rounded-2xl p-7 border border-slate-100 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+            <div class="w-14 h-14 rounded-2xl bg-brand-50 text-brand-600 group-hover:bg-brand-600 group-hover:text-white flex items-center justify-center transition-colors duration-300">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4.8 2.3A.3.3 0 105 2H4a2 2 0 00-2 2v5a6 6 0 006 6 6 6 0 006-6V4a2 2 0 00-2-2h-1a.2.2 0 10.3.3"/><path d="M8 15v1a6 6 0 006 6 6 6 0 006-6v-4"/><circle cx="20" cy="10" r="2"/></svg>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold text-slate-900">Poli Umum</h3>
+            <p class="mt-2 text-sm text-slate-500 leading-relaxed">Pemeriksaan, konsultasi, dan pengobatan untuk keluhan kesehatan sehari-hari.</p>
           </div>
-          <h3 class="mt-5 text-lg font-semibold text-slate-900">Poli Gigi</h3>
-          <p class="mt-2 text-sm text-slate-500 leading-relaxed">Pembersihan karang gigi, tambal, cabut, hingga perawatan estetika gigi.</p>
-        </div>
 
-        <!-- KIA -->
-        <div data-aos="fade-up" data-aos-delay="200" class="group bg-white rounded-2xl p-7 border border-slate-100 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-          <div class="w-14 h-14 rounded-2xl bg-brand-50 text-brand-600 group-hover:bg-brand-600 group-hover:text-white flex items-center justify-center transition-colors duration-300">
-            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 21s-8-5-9.500-10C1.500 7.500 4 4.500 7.500 4.500c2 0 3.500 1 4.500 2.500 1-1.500 2.500-2.500 4.500-2.500 3.500 0 6 3 5 6.500C20 16 12 21 12 21z"/></svg>
+          <!-- Poli Gigi -->
+          <div data-aos="fade-up" data-aos-delay="100" class="group bg-white rounded-2xl p-7 border border-slate-100 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+            <div class="w-14 h-14 rounded-2xl bg-cyan-50 text-cyan-600 group-hover:bg-cyan-600 group-hover:text-white flex items-center justify-center transition-colors duration-300">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M7 3C4.5 3 3 5 3 7.5c0 3 1.5 4 2 7 .4 2.500 1 6.500 2.500 6.500S9 17 12 17s3 4.500 4.500 4.500S18.600 17 19 14.500c.5-3 2-4 2-7C21 5 19.500 3 17 3c-2 0-3 1-5 1S9 3 7 3z"/></svg>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold text-slate-900">Poli Gigi</h3>
+            <p class="mt-2 text-sm text-slate-500 leading-relaxed">Pembersihan karang gigi, tambal, cabut, hingga perawatan estetika gigi.</p>
           </div>
-          <h3 class="mt-5 text-lg font-semibold text-slate-900">KIA</h3>
-          <p class="mt-2 text-sm text-slate-500 leading-relaxed">Kesehatan ibu dan anak: pemeriksaan kehamilan, imunisasi, dan konsultasi KB.</p>
-        </div>
 
-        <!-- Lab -->
-        <div data-aos="fade-up" data-aos-delay="300" class="group bg-white rounded-2xl p-7 border border-slate-100 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-          <div class="w-14 h-14 rounded-2xl bg-cyan-50 text-cyan-600 group-hover:bg-cyan-600 group-hover:text-white flex items-center justify-center transition-colors duration-300">
-            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 10a2 2 0 001.800 3h10.400A2 2 0 0019 19l-5-10V3M7.500 15h9"/></svg>
+          <!-- KIA -->
+          <div data-aos="fade-up" data-aos-delay="200" class="group bg-white rounded-2xl p-7 border border-slate-100 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+            <div class="w-14 h-14 rounded-2xl bg-brand-50 text-brand-600 group-hover:bg-brand-600 group-hover:text-white flex items-center justify-center transition-colors duration-300">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 21s-8-5-9.500-10C1.500 7.500 4 4.500 7.500 4.500c2 0 3.500 1 4.500 2.500 1-1.500 2.500-2.500 4.500-2.500 3.500 0 6 3 5 6.500C20 16 12 21 12 21z"/></svg>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold text-slate-900">KIA</h3>
+            <p class="mt-2 text-sm text-slate-500 leading-relaxed">Kesehatan ibu dan anak: pemeriksaan kehamilan, imunisasi, dan konsultasi KB.</p>
           </div>
-          <h3 class="mt-5 text-lg font-semibold text-slate-900">Laboratorium</h3>
-          <p class="mt-2 text-sm text-slate-500 leading-relaxed">Cek darah, urin, gula darah, dan pemeriksaan penunjang dengan hasil cepat.</p>
+
+          <!-- Lab -->
+          <div data-aos="fade-up" data-aos-delay="300" class="group bg-white rounded-2xl p-7 border border-slate-100 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+            <div class="w-14 h-14 rounded-2xl bg-cyan-50 text-cyan-600 group-hover:bg-cyan-600 group-hover:text-white flex items-center justify-center transition-colors duration-300">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 10a2 2 0 001.800 3h10.400A2 2 0 0019 19l-5-10V3M7.500 15h9"/></svg>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold text-slate-900">Laboratorium</h3>
+            <p class="mt-2 text-sm text-slate-500 leading-relaxed">Cek darah, urin, gula darah, dan pemeriksaan penunjang dengan hasil cepat.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ================= JADWAL PRAKTIK ================= -->
-    <section id="jadwal" class="bg-white scroll-mt-16">
-      <div class="max-w-6xl mx-auto px-5 py-16 md:py-24">
-        <div class="text-center max-w-xl mx-auto" data-aos="fade-up">
-          <p class="text-sm font-semibold text-brand-600 uppercase tracking-widest">Jadwal Praktik</p>
-          <h2 class="mt-2 text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">Temui dokter kami</h2>
-          <p class="mt-3 text-slate-500">Jadwal dapat berubah sewaktu-waktu. Hubungi kami untuk memastikan ketersediaan.</p>
+    <!-- ================= JADWAL PRAKTIK + PROFIL DOKTER ================= -->
+    <section id="jadwal" class="section bg-white">
+      <div class="wrap">
+        <div class="head" data-aos="fade-up">
+          <p class="eyebrow">Jadwal Praktik</p>
+          <h2 class="title">Temui dokter kami</h2>
+          <p class="lead">Jadwal dapat berubah sewaktu-waktu. Hubungi kami untuk memastikan ketersediaan.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- Dokter 1 -->
           <article data-aos="fade-up" class="rounded-3xl bg-slate-50 border border-slate-100 p-6 sm:p-8 hover:shadow-xl transition-shadow duration-300">
             <div class="flex items-center gap-4">
-              <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-500 to-cyan-500 text-white flex items-center justify-center text-xl font-bold shadow-lg shadow-brand-500/30">AR</div>
+              <div class="w-16 h-16 shrink-0 rounded-2xl bg-gradient-to-br from-brand-500 to-cyan-500 text-white flex items-center justify-center text-xl font-bold shadow-lg shadow-brand-500/30">AR</div>
               <div>
                 <h3 class="text-lg font-semibold text-slate-900">dr. Andi Rahman</h3>
-                <span class="inline-block mt-1 text-xs font-semibold bg-brand-100 text-brand-700 px-2.5 py-1 rounded-full">Dokter Umum</span>
+                <div class="mt-1 flex flex-wrap gap-1.5">
+                  <span class="inline-block text-xs font-semibold bg-brand-100 text-brand-700 px-2.5 py-1 rounded-full">Dokter Umum</span>
+                  <span data-status="andi" class="hidden"></span>
+                </div>
               </div>
             </div>
-            <ul class="mt-6 space-y-3 text-sm">
-              <li class="flex items-center justify-between bg-white rounded-xl px-4 py-3 shadow-sm">
+
+            <!-- Profil -->
+            <p class="mt-5 text-sm text-slate-500 leading-relaxed">Menangani keluhan kesehatan umum dengan pendekatan yang tenang dan mudah dipahami pasien.</p>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <span class="chip">S1 Kedokteran</span>
+              <span class="chip">12 tahun pengalaman</span>
+              <span class="chip">STR 1234 5678 9012</span>
+            </div>
+
+            <ul class="mt-5 space-y-3 text-sm">
+              <li class="flex items-center justify-between gap-3 bg-white rounded-xl px-4 py-3 shadow-sm">
                 <span class="font-medium text-slate-700">Senin – Rabu</span>
-                <span class="text-brand-700 font-semibold bg-brand-50 px-3 py-1 rounded-full">08.00 – 14.00</span>
+                <span class="text-brand-700 font-semibold bg-brand-50 px-3 py-1 rounded-full whitespace-nowrap">08.00 – 14.00</span>
               </li>
-              <li class="flex items-center justify-between bg-white rounded-xl px-4 py-3 shadow-sm">
+              <li class="flex items-center justify-between gap-3 bg-white rounded-xl px-4 py-3 shadow-sm">
                 <span class="font-medium text-slate-700">Kamis – Jumat</span>
-                <span class="text-brand-700 font-semibold bg-brand-50 px-3 py-1 rounded-full">14.00 – 20.00</span>
+                <span class="text-brand-700 font-semibold bg-brand-50 px-3 py-1 rounded-full whitespace-nowrap">14.00 – 20.00</span>
               </li>
-              <li class="flex items-center justify-between bg-white rounded-xl px-4 py-3 shadow-sm">
+              <li class="flex items-center justify-between gap-3 bg-white rounded-xl px-4 py-3 shadow-sm">
                 <span class="font-medium text-slate-700">Sabtu</span>
-                <span class="text-brand-700 font-semibold bg-brand-50 px-3 py-1 rounded-full">08.00 – 12.00</span>
+                <span class="text-brand-700 font-semibold bg-brand-50 px-3 py-1 rounded-full whitespace-nowrap">08.00 – 12.00</span>
               </li>
             </ul>
           </article>
@@ -249,24 +284,36 @@
           <!-- Dokter 2 -->
           <article data-aos="fade-up" data-aos-delay="120" class="rounded-3xl bg-slate-50 border border-slate-100 p-6 sm:p-8 hover:shadow-xl transition-shadow duration-300">
             <div class="flex items-center gap-4">
-              <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-500 to-brand-500 text-white flex items-center justify-center text-xl font-bold shadow-lg shadow-cyan-500/30">SW</div>
+              <div class="w-16 h-16 shrink-0 rounded-2xl bg-gradient-to-br from-cyan-500 to-brand-500 text-white flex items-center justify-center text-xl font-bold shadow-lg shadow-cyan-500/30">SW</div>
               <div>
                 <h3 class="text-lg font-semibold text-slate-900">drg. Siti Wulandari</h3>
-                <span class="inline-block mt-1 text-xs font-semibold bg-cyan-100 text-cyan-700 px-2.5 py-1 rounded-full">Dokter Gigi</span>
+                <div class="mt-1 flex flex-wrap gap-1.5">
+                  <span class="inline-block text-xs font-semibold bg-cyan-100 text-cyan-700 px-2.5 py-1 rounded-full">Dokter Gigi</span>
+                  <span data-status="siti" class="hidden"></span>
+                </div>
               </div>
             </div>
-            <ul class="mt-6 space-y-3 text-sm">
-              <li class="flex items-center justify-between bg-white rounded-xl px-4 py-3 shadow-sm">
+
+            <!-- Profil -->
+            <p class="mt-5 text-sm text-slate-500 leading-relaxed">Merawat kesehatan gigi dan mulut untuk anak hingga dewasa dengan penuh kenyamanan.</p>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <span class="chip">Pendidikan Dokter Gigi</span>
+              <span class="chip">9 tahun pengalaman</span>
+              <span class="chip">STR 9876 5432 1098</span>
+            </div>
+
+            <ul class="mt-5 space-y-3 text-sm">
+              <li class="flex items-center justify-between gap-3 bg-white rounded-xl px-4 py-3 shadow-sm">
                 <span class="font-medium text-slate-700">Senin, Rabu, Jumat</span>
-                <span class="text-cyan-700 font-semibold bg-cyan-50 px-3 py-1 rounded-full">10.00 – 16.00</span>
+                <span class="text-cyan-700 font-semibold bg-cyan-50 px-3 py-1 rounded-full whitespace-nowrap">10.00 – 16.00</span>
               </li>
-              <li class="flex items-center justify-between bg-white rounded-xl px-4 py-3 shadow-sm">
+              <li class="flex items-center justify-between gap-3 bg-white rounded-xl px-4 py-3 shadow-sm">
                 <span class="font-medium text-slate-700">Selasa, Kamis</span>
-                <span class="text-cyan-700 font-semibold bg-cyan-50 px-3 py-1 rounded-full">15.00 – 20.00</span>
+                <span class="text-cyan-700 font-semibold bg-cyan-50 px-3 py-1 rounded-full whitespace-nowrap">15.00 – 20.00</span>
               </li>
-              <li class="flex items-center justify-between bg-white rounded-xl px-4 py-3 shadow-sm">
+              <li class="flex items-center justify-between gap-3 bg-white rounded-xl px-4 py-3 shadow-sm">
                 <span class="font-medium text-slate-700">Minggu</span>
-                <span class="text-slate-400 font-semibold bg-slate-100 px-3 py-1 rounded-full">Libur</span>
+                <span class="text-slate-400 font-semibold bg-slate-100 px-3 py-1 rounded-full whitespace-nowrap">Libur</span>
               </li>
             </ul>
           </article>
@@ -274,74 +321,193 @@
       </div>
     </section>
 
-    <!-- ================= TESTIMONI ================= -->
-    <section id="testimoni" class="max-w-6xl mx-auto px-5 py-16 md:py-24 scroll-mt-16">
-      <div class="text-center max-w-xl mx-auto" data-aos="fade-up">
-        <p class="text-sm font-semibold text-brand-600 uppercase tracking-widest">Testimoni</p>
-        <h2 class="mt-2 text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">Kata mereka tentang kami</h2>
+    <!-- ================= FORM JANJI TEMU ================= -->
+    <section id="janji" class="section bg-gradient-to-b from-brand-50 to-slate-50">
+      <div class="wrap grid lg:grid-cols-5 gap-10 lg:gap-14 items-start">
+
+        <!-- Penjelasan -->
+        <div class="lg:col-span-2" data-aos="fade-up">
+          <p class="eyebrow">Janji Temu</p>
+          <h2 class="title">Atur kunjungan Anda, tanpa antre lama</h2>
+          <p class="lead">Isi form singkat ini, lalu konfirmasi lewat WhatsApp. Admin kami akan memastikan jadwal Anda.</p>
+
+          <ol class="mt-8 space-y-5">
+            <li class="flex gap-4">
+              <span class="shrink-0 w-9 h-9 rounded-full bg-brand-600 text-white text-sm font-bold flex items-center justify-center">1</span>
+              <div><p class="font-semibold text-slate-900">Isi data dan pilih jadwal</p><p class="text-sm text-slate-500">Pilih layanan, dokter, tanggal, dan jam yang tersedia.</p></div>
+            </li>
+            <li class="flex gap-4">
+              <span class="shrink-0 w-9 h-9 rounded-full bg-brand-600 text-white text-sm font-bold flex items-center justify-center">2</span>
+              <div><p class="font-semibold text-slate-900">Konfirmasi via WhatsApp</p><p class="text-sm text-slate-500">Pesan sudah terisi otomatis, tinggal kirim ke admin.</p></div>
+            </li>
+            <li class="flex gap-4">
+              <span class="shrink-0 w-9 h-9 rounded-full bg-brand-600 text-white text-sm font-bold flex items-center justify-center">3</span>
+              <div><p class="font-semibold text-slate-900">Datang sesuai jadwal</p><p class="text-sm text-slate-500">Bawa KTP dan kartu asuransi bila ada.</p></div>
+            </li>
+          </ol>
+
+          <p class="mt-8 text-sm text-slate-500">Lebih suka langsung chat?
+            <a href="https://wa.me/628123456789?text=Halo%20Admin,%20saya%20ingin%20buat%20janji%20temu" target="_blank" rel="noopener noreferrer" class="font-semibold text-brand-600 hover:underline">Hubungi admin</a>
+          </p>
+        </div>
+
+        <!-- Form -->
+        <div class="lg:col-span-3" data-aos="fade-up" data-aos-delay="100">
+          <div class="bg-white rounded-3xl shadow-xl border border-slate-100 p-6 sm:p-8">
+
+            <form id="formJanji" novalidate class="grid sm:grid-cols-2 gap-4">
+              <!-- honeypot anti-spam (jangan diisi) -->
+              <input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
+
+              <div>
+                <label for="fNama" class="label">Nama lengkap</label>
+                <input id="fNama" name="nama" type="text" autocomplete="name" placeholder="Nama pasien" class="field">
+              </div>
+              <div>
+                <label for="fHp" class="label">Nomor WhatsApp</label>
+                <input id="fHp" name="hp" type="tel" inputmode="tel" autocomplete="tel" placeholder="08xxxxxxxxxx" class="field">
+              </div>
+
+              <div>
+                <label for="fLayanan" class="label">Layanan</label>
+                <select id="fLayanan" name="layanan" class="field">
+                  <option value="">Pilih layanan</option>
+                  <option>Poli Umum</option>
+                  <option>Poli Gigi</option>
+                  <option>KIA (Ibu &amp; Anak)</option>
+                  <option>Laboratorium</option>
+                </select>
+              </div>
+              <div>
+                <label for="fDokter" class="label">Dokter</label>
+                <select id="fDokter" name="dokter" class="field">
+                  <option value="any">Dokter yang tersedia</option>
+                  <option value="andi">dr. Andi Rahman (Umum)</option>
+                  <option value="siti">drg. Siti Wulandari (Gigi)</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="fTanggal" class="label">Tanggal</label>
+                <input id="fTanggal" name="tanggal" type="date" class="field">
+              </div>
+              <div>
+                <label for="fJam" class="label">Jam</label>
+                <select id="fJam" name="jam" class="field">
+                  <option value="">Pilih tanggal dulu</option>
+                </select>
+              </div>
+
+              <p id="slotHint" class="sm:col-span-2 -mt-1 text-xs text-slate-500"></p>
+
+              <div class="sm:col-span-2">
+                <label for="fKeluhan" class="label">Keluhan <span class="text-slate-400 font-normal">(opsional)</span></label>
+                <textarea id="fKeluhan" name="keluhan" rows="3" placeholder="Ceritakan singkat keluhan Anda" class="field resize-none"></textarea>
+              </div>
+
+              <p id="formError" class="sm:col-span-2 text-sm font-medium text-red-600" role="alert"></p>
+
+              <div class="sm:col-span-2">
+                <button id="btnKirim" type="submit"
+                        class="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-brand-600 to-cyan-600 text-white font-semibold px-7 py-3.5 rounded-full shadow-lg shadow-brand-600/30 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-60 disabled:pointer-events-none">
+                  Kirim Janji Temu
+                </button>
+                <p class="mt-3 text-xs text-center text-slate-400">Data Anda hanya digunakan untuk keperluan janji temu.</p>
+              </div>
+            </form>
+
+            <!-- Tampilan setelah berhasil -->
+            <div id="formSukses" class="hidden text-center">
+              <div class="w-16 h-16 mx-auto rounded-full bg-brand-100 text-brand-600 flex items-center justify-center">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <h3 class="mt-5 text-xl font-bold text-slate-900">Janji temu Anda sudah dicatat</h3>
+              <p class="mt-2 text-sm text-slate-500">Satu langkah lagi: kirim konfirmasi ke admin lewat WhatsApp.</p>
+
+              <ul id="ringkasan" class="mt-6 text-sm text-left space-y-2 bg-slate-50 rounded-2xl p-5"></ul>
+
+              <a id="btnWa" href="#" target="_blank" rel="noopener noreferrer"
+                 class="mt-6 w-full inline-flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold px-7 py-3.5 rounded-full shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all">
+                Konfirmasi via WhatsApp
+              </a>
+              <button id="btnUlang" type="button" class="mt-4 text-sm font-medium text-slate-500 hover:text-brand-600">Buat janji lain</button>
+            </div>
+
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-        <!-- Testimoni 1 -->
-        <figure data-aos="fade-up" class="bg-white rounded-2xl p-7 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-slate-100">
-          <div class="flex gap-1 text-amber-400" aria-label="5 bintang">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 7L12 17.8 5.8 21.200l1.400-7L2 9.400l7-.9L12 2z"/></svg>
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 7L12 17.8 5.8 21.200l1.400-7L2 9.400l7-.9L12 2z"/></svg>
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 7L12 17.8 5.8 21.200l1.400-7L2 9.400l7-.9L12 2z"/></svg>
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 7L12 17.8 5.8 21.200l1.400-7L2 9.400l7-.9L12 2z"/></svg>
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 7L12 17.8 5.8 21.200l1.400-7L2 9.400l7-.9L12 2z"/></svg>
-          </div>
-          <blockquote class="mt-4 text-slate-600 leading-relaxed">"Dokternya sabar dan menjelaskan dengan jelas. Antrean singkat karena bisa janji lewat WhatsApp. Sangat nyaman!"</blockquote>
-          <figcaption class="mt-6 flex items-center gap-3">
-            <span class="w-10 h-10 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-sm">RP</span>
-            <div><p class="text-sm font-semibold text-slate-900">Rina Pratiwi</p><p class="text-xs text-slate-500">Pasien Poli Umum</p></div>
-          </figcaption>
-        </figure>
+    <!-- ================= TESTIMONI ================= -->
+    <section id="testimoni" class="section">
+      <div class="wrap">
+        <div class="head" data-aos="fade-up">
+          <p class="eyebrow">Testimoni</p>
+          <h2 class="title">Kata mereka tentang kami</h2>
+        </div>
 
-        <!-- Testimoni 2 -->
-        <figure data-aos="fade-up" data-aos-delay="120" class="bg-white rounded-2xl p-7 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-slate-100">
-          <div class="flex gap-1 text-amber-400" aria-label="5 bintang">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 7L12 17.8 5.8 21.200l1.400-7L2 9.400l7-.9L12 2z"/></svg>
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 7L12 17.8 5.8 21.200l1.400-7L2 9.400l7-.9L12 2z"/></svg>
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 7L12 17.8 5.8 21.200l1.400-7L2 9.400l7-.9L12 2z"/></svg>
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 7L12 17.8 5.8 21.200l1.400-7L2 9.400l7-.9L12 2z"/></svg>
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 7L12 17.8 5.8 21.200l1.400-7L2 9.400l7-.9L12 2z"/></svg>
-          </div>
-          <blockquote class="mt-4 text-slate-600 leading-relaxed">"Anak saya biasanya takut ke dokter gigi, tapi di sini dia malah betah. Ruangannya bersih dan stafnya ramah."</blockquote>
-          <figcaption class="mt-6 flex items-center gap-3">
-            <span class="w-10 h-10 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center font-bold text-sm">BS</span>
-            <div><p class="text-sm font-semibold text-slate-900">Budi Santoso</p><p class="text-xs text-slate-500">Pasien Poli Gigi</p></div>
-          </figcaption>
-        </figure>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Testimoni 1 -->
+          <figure data-aos="fade-up" class="flex flex-col bg-white rounded-2xl p-7 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-slate-100">
+            <div class="flex gap-1 text-amber-400" aria-label="5 bintang">
+              <svg class="w-5 h-5" fill="currentColor"><use href="#star"/></svg>
+              <svg class="w-5 h-5" fill="currentColor"><use href="#star"/></svg>
+              <svg class="w-5 h-5" fill="currentColor"><use href="#star"/></svg>
+              <svg class="w-5 h-5" fill="currentColor"><use href="#star"/></svg>
+              <svg class="w-5 h-5" fill="currentColor"><use href="#star"/></svg>
+            </div>
+            <blockquote class="mt-4 text-slate-600 leading-relaxed">"Dokternya sabar dan menjelaskan dengan jelas. Antrean singkat karena bisa janji lewat WhatsApp. Sangat nyaman!"</blockquote>
+            <figcaption class="mt-auto pt-6 flex items-center gap-3">
+              <span class="w-10 h-10 shrink-0 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-sm">RP</span>
+              <div><p class="text-sm font-semibold text-slate-900">Rina Pratiwi</p><p class="text-xs text-slate-500">Pasien Poli Umum</p></div>
+            </figcaption>
+          </figure>
 
-        <!-- Testimoni 3 -->
-        <figure data-aos="fade-up" data-aos-delay="240" class="bg-white rounded-2xl p-7 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-slate-100">
-          <div class="flex gap-1 text-amber-400" aria-label="5 bintang">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 7L12 17.8 5.8 21.200l1.400-7L2 9.400l7-.9L12 2z"/></svg>
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 7L12 17.8 5.8 21.200l1.400-7L2 9.400l7-.9L12 2z"/></svg>
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 7L12 17.8 5.8 21.200l1.400-7L2 9.400l7-.9L12 2z"/></svg>
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 7L12 17.8 5.8 21.200l1.400-7L2 9.400l7-.9L12 2z"/></svg>
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .9-5.2 4.8 1.4 7L12 17.8 5.8 21.200l1.400-7L2 9.400l7-.9L12 2z"/></svg>
-          </div>
-          <blockquote class="mt-4 text-slate-600 leading-relaxed">"Hasil lab keluar cepat dan penjelasannya mudah dipahami. Pemeriksaan kehamilan saya juga ditangani dengan sangat baik."</blockquote>
-          <figcaption class="mt-6 flex items-center gap-3">
-            <span class="w-10 h-10 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-sm">DA</span>
-            <div><p class="text-sm font-semibold text-slate-900">Dewi Anggraini</p><p class="text-xs text-slate-500">Pasien KIA &amp; Lab</p></div>
-          </figcaption>
-        </figure>
+          <!-- Testimoni 2 -->
+          <figure data-aos="fade-up" data-aos-delay="120" class="flex flex-col bg-white rounded-2xl p-7 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-slate-100">
+            <div class="flex gap-1 text-amber-400" aria-label="5 bintang">
+              <svg class="w-5 h-5" fill="currentColor"><use href="#star"/></svg>
+              <svg class="w-5 h-5" fill="currentColor"><use href="#star"/></svg>
+              <svg class="w-5 h-5" fill="currentColor"><use href="#star"/></svg>
+              <svg class="w-5 h-5" fill="currentColor"><use href="#star"/></svg>
+              <svg class="w-5 h-5" fill="currentColor"><use href="#star"/></svg>
+            </div>
+            <blockquote class="mt-4 text-slate-600 leading-relaxed">"Anak saya biasanya takut ke dokter gigi, tapi di sini dia malah betah. Ruangannya bersih dan stafnya ramah."</blockquote>
+            <figcaption class="mt-auto pt-6 flex items-center gap-3">
+              <span class="w-10 h-10 shrink-0 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center font-bold text-sm">BS</span>
+              <div><p class="text-sm font-semibold text-slate-900">Budi Santoso</p><p class="text-xs text-slate-500">Pasien Poli Gigi</p></div>
+            </figcaption>
+          </figure>
+
+          <!-- Testimoni 3 -->
+          <figure data-aos="fade-up" data-aos-delay="240" class="flex flex-col bg-white rounded-2xl p-7 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-slate-100">
+            <div class="flex gap-1 text-amber-400" aria-label="5 bintang">
+              <svg class="w-5 h-5" fill="currentColor"><use href="#star"/></svg>
+              <svg class="w-5 h-5" fill="currentColor"><use href="#star"/></svg>
+              <svg class="w-5 h-5" fill="currentColor"><use href="#star"/></svg>
+              <svg class="w-5 h-5" fill="currentColor"><use href="#star"/></svg>
+              <svg class="w-5 h-5" fill="currentColor"><use href="#star"/></svg>
+            </div>
+            <blockquote class="mt-4 text-slate-600 leading-relaxed">"Hasil lab keluar cepat dan penjelasannya mudah dipahami. Pemeriksaan kehamilan saya juga ditangani dengan sangat baik."</blockquote>
+            <figcaption class="mt-auto pt-6 flex items-center gap-3">
+              <span class="w-10 h-10 shrink-0 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-sm">DA</span>
+              <div><p class="text-sm font-semibold text-slate-900">Dewi Anggraini</p><p class="text-xs text-slate-500">Pasien KIA &amp; Lab</p></div>
+            </figcaption>
+          </figure>
+        </div>
       </div>
     </section>
 
     <!-- ================= FAQ ================= -->
-    <section id="faq" class="bg-white scroll-mt-16">
-      <div class="max-w-3xl mx-auto px-5 py-16 md:py-24">
-        <div class="text-center max-w-xl mx-auto" data-aos="fade-up">
-          <p class="text-sm font-semibold text-brand-600 uppercase tracking-widest">FAQ</p>
-          <h2 class="mt-2 text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">Pertanyaan yang sering diajukan</h2>
-          <p class="mt-3 text-slate-500">Belum menemukan jawaban? Hubungi kami lewat WhatsApp, kami siap membantu.</p>
+    <section id="faq" class="section bg-white">
+      <div class="wrap !max-w-3xl">
+        <div class="head" data-aos="fade-up">
+          <p class="eyebrow">FAQ</p>
+          <h2 class="title">Pertanyaan yang sering diajukan</h2>
+          <p class="lead">Belum menemukan jawaban? Hubungi kami lewat WhatsApp, kami siap membantu.</p>
         </div>
 
-        <div class="mt-12 space-y-4">
+        <div class="space-y-4">
           <!-- FAQ 1 -->
           <details data-aos="fade-up" class="group bg-slate-50 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md open:bg-white open:shadow-lg open:border-brand-100 transition-all duration-300">
             <summary class="flex items-center justify-between gap-4 cursor-pointer list-none p-5 sm:p-6 font-semibold text-slate-900">
@@ -350,51 +516,51 @@
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
               </span>
             </summary>
-            <p class="px-5 sm:px-6 pb-5 sm:pb-6 -mt-1 text-sm sm:text-base text-slate-500 leading-relaxed">Disarankan membuat janji lewat WhatsApp agar waktu tunggu lebih singkat. Pasien yang datang langsung (walk-in) tetap kami layani sesuai urutan antrean.</p>
+            <p class="px-5 sm:px-6 pb-5 sm:pb-6 text-sm sm:text-base text-slate-500 leading-relaxed">Disarankan membuat janji lewat WhatsApp agar waktu tunggu lebih singkat. Pasien yang datang langsung (walk-in) tetap kami layani sesuai urutan antrean.</p>
           </details>
 
           <!-- FAQ 2 -->
-          <details data-aos="fade-up" data-aos-delay="80" class="group bg-slate-50 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md open:bg-white open:shadow-lg open:border-brand-100 transition-all duration-300">
+          <details data-aos="fade-up" class="group bg-slate-50 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md open:bg-white open:shadow-lg open:border-brand-100 transition-all duration-300">
             <summary class="flex items-center justify-between gap-4 cursor-pointer list-none p-5 sm:p-6 font-semibold text-slate-900">
               Apakah menerima pasien BPJS atau asuransi swasta?
               <span class="shrink-0 w-8 h-8 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center transition-transform duration-300 group-open:rotate-45">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
               </span>
             </summary>
-            <p class="px-5 sm:px-6 pb-5 sm:pb-6 -mt-1 text-sm sm:text-base text-slate-500 leading-relaxed">Kami melayani pasien umum dan beberapa asuransi swasta rekanan. Silakan hubungi admin untuk memastikan asuransi Anda dapat digunakan sebelum berkunjung.</p>
+            <p class="px-5 sm:px-6 pb-5 sm:pb-6 text-sm sm:text-base text-slate-500 leading-relaxed">Kami melayani pasien umum dan beberapa asuransi swasta rekanan. Silakan hubungi admin untuk memastikan asuransi Anda dapat digunakan sebelum berkunjung.</p>
           </details>
 
           <!-- FAQ 3 -->
-          <details data-aos="fade-up" data-aos-delay="160" class="group bg-slate-50 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md open:bg-white open:shadow-lg open:border-brand-100 transition-all duration-300">
+          <details data-aos="fade-up" class="group bg-slate-50 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md open:bg-white open:shadow-lg open:border-brand-100 transition-all duration-300">
             <summary class="flex items-center justify-between gap-4 cursor-pointer list-none p-5 sm:p-6 font-semibold text-slate-900">
               Apa saja yang perlu dibawa saat berkunjung?
               <span class="shrink-0 w-8 h-8 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center transition-transform duration-300 group-open:rotate-45">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
               </span>
             </summary>
-            <p class="px-5 sm:px-6 pb-5 sm:pb-6 -mt-1 text-sm sm:text-base text-slate-500 leading-relaxed">Mohon bawa KTP atau kartu identitas, kartu asuransi (jika ada), serta hasil pemeriksaan atau resep sebelumnya bila ada, agar dokter dapat menangani Anda dengan lebih tepat.</p>
+            <p class="px-5 sm:px-6 pb-5 sm:pb-6 text-sm sm:text-base text-slate-500 leading-relaxed">Mohon bawa KTP atau kartu identitas, kartu asuransi (jika ada), serta hasil pemeriksaan atau resep sebelumnya bila ada, agar dokter dapat menangani Anda dengan lebih tepat.</p>
           </details>
 
           <!-- FAQ 4 -->
-          <details data-aos="fade-up" data-aos-delay="240" class="group bg-slate-50 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md open:bg-white open:shadow-lg open:border-brand-100 transition-all duration-300">
+          <details data-aos="fade-up" class="group bg-slate-50 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md open:bg-white open:shadow-lg open:border-brand-100 transition-all duration-300">
             <summary class="flex items-center justify-between gap-4 cursor-pointer list-none p-5 sm:p-6 font-semibold text-slate-900">
               Apakah pemeriksaan laboratorium perlu puasa?
               <span class="shrink-0 w-8 h-8 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center transition-transform duration-300 group-open:rotate-45">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
               </span>
             </summary>
-            <p class="px-5 sm:px-6 pb-5 sm:pb-6 -mt-1 text-sm sm:text-base text-slate-500 leading-relaxed">Tergantung jenis pemeriksaan. Beberapa tes seperti gula darah puasa dan kolesterol memerlukan puasa sekitar 8–10 jam. Tanyakan ke admin kami saat membuat janji agar Anda mendapat persiapan yang sesuai.</p>
+            <p class="px-5 sm:px-6 pb-5 sm:pb-6 text-sm sm:text-base text-slate-500 leading-relaxed">Tergantung jenis pemeriksaan. Beberapa tes seperti gula darah puasa dan kolesterol memerlukan puasa sekitar 8–10 jam. Tanyakan ke admin kami saat membuat janji agar Anda mendapat persiapan yang sesuai.</p>
           </details>
 
           <!-- FAQ 5 -->
-          <details data-aos="fade-up" data-aos-delay="320" class="group bg-slate-50 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md open:bg-white open:shadow-lg open:border-brand-100 transition-all duration-300">
+          <details data-aos="fade-up" class="group bg-slate-50 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md open:bg-white open:shadow-lg open:border-brand-100 transition-all duration-300">
             <summary class="flex items-center justify-between gap-4 cursor-pointer list-none p-5 sm:p-6 font-semibold text-slate-900">
               Apakah klinik melayani imunisasi untuk anak?
               <span class="shrink-0 w-8 h-8 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center transition-transform duration-300 group-open:rotate-45">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
               </span>
             </summary>
-            <p class="px-5 sm:px-6 pb-5 sm:pb-6 -mt-1 text-sm sm:text-base text-slate-500 leading-relaxed">Ya, layanan KIA kami mencakup imunisasi dasar dan lanjutan untuk bayi dan anak, serta pemantauan tumbuh kembang. Hubungi kami untuk menanyakan ketersediaan jenis vaksin.</p>
+            <p class="px-5 sm:px-6 pb-5 sm:pb-6 text-sm sm:text-base text-slate-500 leading-relaxed">Ya, layanan KIA kami mencakup imunisasi dasar dan lanjutan untuk bayi dan anak, serta pemantauan tumbuh kembang. Hubungi kami untuk menanyakan ketersediaan jenis vaksin.</p>
           </details>
         </div>
 
@@ -413,9 +579,9 @@
 
   <!-- ================= FOOTER ================= -->
   <footer id="kontak" class="bg-slate-900 text-slate-300 scroll-mt-16">
-    <div class="max-w-6xl mx-auto px-5 py-14 grid grid-cols-1 md:grid-cols-2 gap-10">
+    <div class="wrap py-14 grid grid-cols-1 md:grid-cols-2 gap-10">
       <div>
-        <a href="#beranda" class="flex items-center gap-2">
+        <a href="#beranda" class="inline-flex items-center gap-2">
           <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-cyan-500 text-white flex items-center justify-center">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
           </span>
@@ -426,7 +592,7 @@
         <ul class="mt-6 space-y-4 text-sm">
           <li class="flex gap-3">
             <svg class="w-5 h-5 text-brand-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            <span>Jl. Kesehatan Raya No. 123, Kecamatan Sejahtera,<br>Jakarta 12345</span>
+            <span>Jl. Kesehatan Raya No. 123, Kecamatan Sejahtera, Jakarta 12345</span>
           </li>
           <li class="flex gap-3">
             <svg class="w-5 h-5 text-brand-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 16.920v3a2 2 0 01-2.180 2 19.790 19.790 0 01-8.630-3.070 19.500 19.500 0 01-6-6 19.790 19.790 0 01-3.070-8.670A2 2 0 014.110 2h3a2 2 0 012 1.720c.130.960.360 1.900.700 2.810a2 2 0 01-.450 2.110L8.090 9.910a16 16 0 006 6l1.270-1.270a2 2 0 012.110-.450c.910.340 1.850.570 2.810.700A2 2 0 0122 16.920z"/></svg>
@@ -439,11 +605,11 @@
         </ul>
       </div>
 
-      <div class="rounded-2xl overflow-hidden shadow-xl ring-1 ring-white/10 min-h-[18rem]">
+      <div class="rounded-2xl overflow-hidden shadow-xl ring-1 ring-white/10 h-72 md:h-full md:min-h-[18rem]">
         <iframe
           title="Lokasi Klinik Sehat"
           src="https://www.google.com/maps?q=-6.2088,106.8456&z=15&output=embed"
-          class="w-full h-72 md:h-full border-0"
+          class="w-full h-full border-0"
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
           allowfullscreen></iframe>
@@ -454,7 +620,7 @@
     </div>
   </footer>
 
-  <!-- ================= FLOATING WHATSAPP (pulse) ================= -->
+  <!-- ================= FLOATING WHATSAPP ================= -->
   <a href="https://wa.me/628123456789?text=Halo%20Admin,%20saya%20butuh%20bantuan"
      target="_blank" rel="noopener noreferrer" aria-label="Chat via WhatsApp"
      class="fixed bottom-5 right-5 z-50 group">
@@ -464,7 +630,7 @@
     </span>
   </a>
 
-  <!-- AOS + Script -->
+  <!-- AOS + Menu -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
     AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 60 });
@@ -487,10 +653,11 @@
     menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(true)));
   </script>
 
-  <!-- ================= FIREBASE ================= -->
+  <!-- ================= FIREBASE + STATUS + FORM JANJI ================= -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDp4sRoFKh_6EnuINbaPxCeq75izHw6FaE",
@@ -502,16 +669,199 @@
       measurementId: "G-LW93LEMVKM"
     };
 
-    // Inisialisasi Firebase
     const app = initializeApp(firebaseConfig);
+    try { getAnalytics(app); } catch (err) { console.warn("Firebase Analytics tidak aktif:", err); }
+    let db = null;
+    try { db = getFirestore(app); } catch (err) { console.warn("Firestore tidak aktif:", err); }
 
-    // Analytics (dibungkus try/catch agar halaman tetap jalan
-    // jika dibuka lewat file:// atau diblokir ad-blocker)
-    try {
-      const analytics = getAnalytics(app);
-    } catch (err) {
-      console.warn("Firebase Analytics tidak aktif:", err);
+    /* ---------- DATA JADWAL (ubah di sini bila jadwal berubah) ----------
+       Kunci hari: 0 = Minggu, 1 = Senin, ... 6 = Sabtu. Nilai: [jam mulai, jam selesai] */
+    const WA = "628123456789";
+    const BUKA = 8, TUTUP = 20;
+    const DOKTER = {
+      andi: { nama: "dr. Andi Rahman",      jam: { 1:[8,14], 2:[8,14], 3:[8,14], 4:[14,20], 5:[14,20], 6:[8,12] } },
+      siti: { nama: "drg. Siti Wulandari",  jam: { 1:[10,16], 3:[10,16], 5:[10,16], 2:[15,20], 4:[15,20] } }
+    };
+
+    /* ---------- WAKTU (zona WIB) ---------- */
+    const HARI = { Sun:0, Mon:1, Tue:2, Wed:3, Thu:4, Fri:5, Sat:6 };
+    function sekarang() {
+      const p = new Intl.DateTimeFormat("en-US", {
+        timeZone: "Asia/Jakarta", weekday: "short", year: "numeric", month: "2-digit",
+        day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23"
+      }).formatToParts(new Date());
+      const g = t => p.find(x => x.type === t).value;
+      return { hari: HARI[g("weekday")], jam: +g("hour") + (+g("minute")) / 60, tgl: `${g("year")}-${g("month")}-${g("day")}` };
     }
+    const fmt = h => { const j = Math.floor(h), m = Math.round((h - j) * 60); return String(j).padStart(2, "0") + "." + String(m).padStart(2, "0"); };
+
+    /* ---------- BADGE BUKA/TUTUP & STATUS DOKTER ---------- */
+    const dot = document.getElementById("statusDot");
+    const statusText = document.getElementById("statusText");
+
+    function updateStatus() {
+      const n = sekarang();
+      const buka = n.jam >= BUKA && n.jam < TUTUP;
+      dot.className = "w-2 h-2 rounded-full " + (buka ? "bg-green-500 animate-pulse" : "bg-slate-400");
+      statusText.textContent = buka
+        ? `Buka sekarang · tutup ${fmt(TUTUP)}`
+        : `Sedang tutup · buka ${n.jam < BUKA ? "hari ini" : "besok"} ${fmt(BUKA)}`;
+
+      document.querySelectorAll("[data-status]").forEach(el => {
+        const r = DOKTER[el.dataset.status].jam[n.hari];
+        let cls, txt;
+        if (!r)                                   { cls = "bg-slate-100 text-slate-500"; txt = "Tidak praktik hari ini"; }
+        else if (n.jam >= r[0] && n.jam < r[1])   { cls = "bg-green-100 text-green-700"; txt = `Sedang praktik hingga ${fmt(r[1])}`; }
+        else if (n.jam < r[0])                    { cls = "bg-amber-100 text-amber-700"; txt = `Praktik hari ini ${fmt(r[0])} – ${fmt(r[1])}`; }
+        else                                      { cls = "bg-slate-100 text-slate-500"; txt = "Praktik hari ini sudah selesai"; }
+        el.className = "inline-block text-xs font-semibold px-2.5 py-1 rounded-full " + cls;
+        el.textContent = txt;
+      });
+    }
+    updateStatus();
+    setInterval(updateStatus, 60000);
+
+    /* ---------- FORM JANJI TEMU ---------- */
+    const f = document.getElementById("formJanji");
+    const el = f.elements;
+    const hint = document.getElementById("slotHint");
+    const errBox = document.getElementById("formError");
+    const btnKirim = document.getElementById("btnKirim");
+    const sukses = document.getElementById("formSukses");
+
+    // Batas tanggal: hari ini sampai 60 hari ke depan
+    (function setTanggal() {
+      const [y, m, d] = sekarang().tgl.split("-").map(Number);
+      const iso = dt => `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, "0")}-${String(dt.getDate()).padStart(2, "0")}`;
+      el.tanggal.min = iso(new Date(y, m - 1, d));
+      el.tanggal.max = iso(new Date(y, m - 1, d + 60));
+    })();
+
+    function slotList(key, tgl) {
+      const [y, m, d] = tgl.split("-").map(Number);
+      const hari = new Date(y, m - 1, d).getDay();
+      const keys = key === "any" ? Object.keys(DOKTER) : [key];
+      const set = new Set();
+      keys.forEach(k => {
+        const r = DOKTER[k].jam[hari];
+        if (r) for (let t = r[0]; t < r[1]; t += 0.5) set.add(t);
+      });
+      let arr = [...set].sort((a, b) => a - b);
+      const n = sekarang();
+      if (tgl === n.tgl) arr = arr.filter(t => t >= n.jam + 0.5);
+      return arr;
+    }
+
+    function rentangTeks(key, tgl) {
+      const [y, m, d] = tgl.split("-").map(Number);
+      const hari = new Date(y, m - 1, d).getDay();
+      const keys = key === "any" ? Object.keys(DOKTER) : [key];
+      return keys.map(k => { const r = DOKTER[k].jam[hari]; return r ? `${DOKTER[k].nama}: ${fmt(r[0])} – ${fmt(r[1])}` : null; })
+                 .filter(Boolean).join(" · ");
+    }
+
+    function refreshSlots() {
+      const tgl = el.tanggal.value, dok = el.dokter.value;
+      if (!tgl) {
+        el.jam.innerHTML = '<option value="">Pilih tanggal dulu</option>';
+        hint.textContent = ""; hint.className = "sm:col-span-2 -mt-1 text-xs text-slate-500";
+        return;
+      }
+      const slots = slotList(dok, tgl);
+      if (!slots.length) {
+        el.jam.innerHTML = '<option value="">Tidak ada jam tersedia</option>';
+        hint.textContent = "Tidak ada jam praktik yang tersedia pada tanggal ini. Silakan pilih tanggal atau dokter lain.";
+        hint.className = "sm:col-span-2 -mt-1 text-xs font-medium text-amber-600";
+        return;
+      }
+      el.jam.innerHTML = '<option value="">Pilih jam</option>' + slots.map(t => `<option value="${fmt(t)}">${fmt(t)}</option>`).join("");
+      hint.textContent = "Jam praktik — " + rentangTeks(dok, tgl);
+      hint.className = "sm:col-span-2 -mt-1 text-xs text-slate-500";
+    }
+
+    // Pilih layanan -> saran dokter otomatis
+    el.layanan.addEventListener("change", () => {
+      const v = el.layanan.value;
+      if (v === "Poli Gigi") el.dokter.value = "siti";
+      else if (v === "Poli Umum") el.dokter.value = "andi";
+      else if (v) el.dokter.value = "any";
+      refreshSlots();
+    });
+    el.dokter.addEventListener("change", refreshSlots);
+    el.tanggal.addEventListener("change", refreshSlots);
+
+    function tampilError(msg) { errBox.textContent = msg; }
+
+    f.addEventListener("submit", async e => {
+      e.preventDefault();
+      tampilError("");
+      if (el.website.value) return; // honeypot
+
+      const nama = el.nama.value.trim();
+      const hp = el.hp.value.replace(/[\s-]/g, "");
+      const layanan = el.layanan.value;
+      const dokKey = el.dokter.value;
+      const tgl = el.tanggal.value;
+      const jam = el.jam.value;
+      const keluhan = el.keluhan.value.trim();
+
+      if (nama.length < 3) return tampilError("Mohon isi nama lengkap Anda.");
+      if (!/^(\+62|62|0)8\d{8,12}$/.test(hp)) return tampilError("Nomor WhatsApp belum valid. Contoh: 081234567890.");
+      if (!layanan) return tampilError("Silakan pilih layanan.");
+      if (!tgl) return tampilError("Silakan pilih tanggal kunjungan.");
+      if (!jam) return tampilError("Silakan pilih jam kunjungan.");
+
+      const dokLabel = dokKey === "any" ? "Dokter yang tersedia" : DOKTER[dokKey].nama;
+      const [y, m, d] = tgl.split("-").map(Number);
+      const tglLabel = new Date(y, m - 1, d).toLocaleDateString("id-ID", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+
+      btnKirim.disabled = true;
+      btnKirim.textContent = "Mengirim…";
+
+      // Simpan ke Firebase (jika gagal, alur WhatsApp tetap jalan)
+      try {
+        if (db) {
+          await Promise.race([
+            addDoc(collection(db, "janji_temu"), {
+              nama, hp, layanan, dokter: dokLabel, tanggal: tgl, jam, keluhan,
+              status: "baru", sumber: "website", dibuat: serverTimestamp()
+            }),
+            new Promise((_, rej) => setTimeout(() => rej(new Error("timeout")), 6000))
+          ]);
+        }
+      } catch (err) {
+        console.warn("Gagal menyimpan ke Firebase:", err);
+      }
+
+      // Pesan WhatsApp otomatis
+      const pesan =
+        "Halo Admin, saya ingin buat janji temu.\n\n" +
+        `Nama: ${nama}\nNo. WA: ${hp}\nLayanan: ${layanan}\nDokter: ${dokLabel}\n` +
+        `Tanggal: ${tglLabel}\nJam: ${jam}` + (keluhan ? `\nKeluhan: ${keluhan}` : "");
+      document.getElementById("btnWa").href = `https://wa.me/${WA}?text=${encodeURIComponent(pesan)}`;
+
+      const ring = document.getElementById("ringkasan");
+      ring.innerHTML = "";
+      [["Nama", nama], ["Layanan", layanan], ["Dokter", dokLabel], ["Jadwal", `${tglLabel}, ${jam}`]].forEach(([k, v]) => {
+        const li = document.createElement("li");
+        li.className = "flex justify-between gap-4";
+        const a = document.createElement("span"); a.className = "text-slate-500"; a.textContent = k;
+        const b = document.createElement("span"); b.className = "font-semibold text-slate-800 text-right"; b.textContent = v;
+        li.append(a, b); ring.append(li);
+      });
+
+      f.classList.add("hidden");
+      sukses.classList.remove("hidden");
+      btnKirim.disabled = false;
+      btnKirim.textContent = "Kirim Janji Temu";
+    });
+
+    document.getElementById("btnUlang").addEventListener("click", () => {
+      f.reset();
+      refreshSlots();
+      sukses.classList.add("hidden");
+      f.classList.remove("hidden");
+    });
   </script>
 </body>
 </html>
