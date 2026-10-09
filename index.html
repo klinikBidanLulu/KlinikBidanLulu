@@ -1,26 +1,167 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Klinik Sehat - Perawatan Modern, Hati yang Tenang</title>
+  <title>Klinik Pramata Nani Medika - Perawatan Modern, Hati yang Tenang</title>
+
+  <!-- ==========================================================
+       PENGATURAN KLINIK  -  CUKUP UBAH BAGIAN INI SAJA
+       (ubah isi di dalam tanda kutip "...", jangan hapus tanda kutip/koma)
+       ========================================================== -->
+  <script>
+    window.KLINIK = {
+
+      // --- IDENTITAS ---
+      // Kata pertama tampil hitam, sisanya tampil hijau (di navbar & footer).
+      NAMA_KLINIK: "Klinik Pramata Nani Medika",
+      // Foto besar di bagian atas. Isi nama file (satu folder dengan file HTML ini) atau link gambar.
+      FOTO_HERO: "watermarked_img_17200273929259396407.jpg",
+
+      // --- WHATSAPP ---
+      // Nomor WA admin (dipakai tombol WA melayang & tombol tanya di FAQ).
+      // Boleh ditulis 0812xxxx atau 62812xxxx, otomatis dirapikan.
+      WA_NOMOR: "628123456789",
+
+      // Nomor WA khusus untuk JANJI TEMU / KUNJUNGAN (form janji & tombol "Hubungi admin").
+      // Kosongkan ("") jika sama dengan WA_NOMOR.
+      WA_JANJI: "",
+
+      // --- TELEPON (tampil di footer, bisa diklik untuk menelepon) ---
+      TELEPON_1: "0812-3456-789",
+      TELEPON_2: "(021) 123-4567",
+
+      // --- ALAMAT (tampil di footer) ---
+      ALAMAT: "Jl. Kesehatan Raya No. 123, Kecamatan Sejahtera, Jakarta 12345",
+
+      // --- GOOGLE MAPS ---
+      // Cara paling mudah: isi alamat / nama klinik / koordinat, peta otomatis menyesuaikan.
+      MAPS_CARI: "-6.2088,106.8456",
+      // Opsional: tempel link src dari Google Maps > Bagikan > Sematkan peta.
+      // (hanya isi di dalam src="...", bukan seluruh kode iframe). Kosongkan jika tidak dipakai.
+      MAPS_EMBED: "",
+
+      // --- JAM BUKA KLINIK (angka 0-24) ---
+      JAM_BUKA: 8,
+      JAM_TUTUP: 20,
+
+      // --- ISI PESAN WHATSAPP OTOMATIS ---
+      PESAN_JANJI: "Halo Admin, saya ingin buat janji temu",
+      PESAN_BANTUAN: "Halo Admin, saya butuh bantuan",
+      PESAN_TANYA: "Halo Admin, saya ingin bertanya"
+    };
+  </script>
+  <!-- ================= AKHIR PENGATURAN ================= -->
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+@@ -72,10 +120,10 @@
+  <header class="sticky top-0 z-50 bg-white/70 backdrop-blur-xl border-b border-white/60 shadow-sm">
+    <nav class="wrap h-16 flex items-center justify-between">
+      <a href="#beranda" class="flex items-center gap-2">
+        <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-cyan-500 text-white flex items-center justify-center shadow-lg shadow-brand-500/30">
+        <span class="w-9 h-9 shrink-0 rounded-xl bg-gradient-to-br from-brand-500 to-cyan-500 text-white flex items-center justify-center shadow-lg shadow-brand-500/30">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+        </span>
+        <span class="text-lg font-bold text-slate-800">Klinik<span class="text-brand-600"> Pramata Nani Medika </span></span>
+        <span class="text-base sm:text-lg font-bold text-slate-800 leading-tight" data-nama data-warna="text-brand-600">Klinik<span class="text-brand-600"> Pramata Nani Medika</span></span>
+      </a>
+
+      <ul class="hidden md:flex items-center gap-8 text-sm font-medium">
+@@ -156,8 +204,8 @@ <h1 class="mt-5 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 l
+        <!-- Gambar -->
+        <div data-aos="fade-up" data-aos-delay="150">
+          <div class="relative rounded-[2rem] overflow-hidden shadow-2xl shadow-brand-900/10 ring-8 ring-white bg-gradient-to-br from-brand-100 to-cyan-100 aspect-[4/3] md:aspect-square">
+            <img src="watermarked_img_17200273929259396407.jpg"
+                 alt="Dokter ramah di Klinik Sehat" class="w-full h-full object-cover" loading="eager">
+            <img id="fotoHero" src="watermarked_img_17200273929259396407.jpg"
+                 alt="Klinik Pramata Nani Medika" class="w-full h-full object-cover" loading="eager">
+
+            <!-- Badge 1 -->
+            <div class="floaty absolute left-4 bottom-4 bg-white/90 backdrop-blur rounded-2xl shadow-xl px-4 py-3 flex items-center gap-3">
+@@ -347,7 +395,7 @@ <h2 class="title">Atur kunjungan Anda, tanpa antre lama</h2>
+          </ol>
+
+          <p class="mt-8 text-sm text-slate-500">Lebih suka langsung chat?
+            <a href="https://wa.me/628123456789?text=Halo%20Admin,%20saya%20ingin%20buat%20janji%20temu" target="_blank" rel="noopener noreferrer" class="font-semibold text-brand-600 hover:underline">Hubungi admin</a>
+            <a href="#" data-wa="janji" target="_blank" rel="noopener noreferrer" class="font-semibold text-brand-600 hover:underline">Hubungi admin</a>
+          </p>
+        </div>
+
+@@ -566,7 +614,7 @@ <h2 class="title">Pertanyaan yang sering diajukan</h2>
+
+        <!-- CTA di bawah FAQ -->
+        <div class="mt-10 text-center" data-aos="fade-up">
+          <a href="https://wa.me/628123456789?text=Halo%20Admin,%20saya%20ingin%20bertanya"
+          <a href="#" data-wa="tanya"
+             target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center gap-2 bg-slate-900 hover:bg-brand-600 text-white text-sm font-semibold px-6 py-3 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
+            Tanya Admin via WhatsApp
+@@ -582,46 +630,46 @@ <h2 class="title">Pertanyaan yang sering diajukan</h2>
+    <div class="wrap py-14 grid grid-cols-1 md:grid-cols-2 gap-10">
+      <div>
+        <a href="#beranda" class="inline-flex items-center gap-2">
+          <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-cyan-500 text-white flex items-center justify-center">
+          <span class="w-9 h-9 shrink-0 rounded-xl bg-gradient-to-br from-brand-500 to-cyan-500 text-white flex items-center justify-center">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+          </span>
+          <span class="text-lg font-bold text-white">Klinik<span class="text-brand-400"> Sehat</span></span>
+          <span class="text-lg font-bold text-white leading-tight" data-nama data-warna="text-brand-400">Klinik<span class="text-brand-400"> Pramata Nani Medika</span></span>
+        </a>
+        <p class="mt-4 text-sm text-slate-400 max-w-sm leading-relaxed">Klinik keluarga dengan layanan medis modern, dokter berpengalaman, dan pelayanan yang ramah.</p>
+
+        <ul class="mt-6 space-y-4 text-sm">
+          <li class="flex gap-3">
+            <svg class="w-5 h-5 text-brand-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Jl. Kesehatan Raya No. 123, Kecamatan Sejahtera, Jakarta 12345</span>
+            <span data-isi="alamat">Jl. Kesehatan Raya No. 123, Kecamatan Sejahtera, Jakarta 12345</span>
+          </li>
+          <li class="flex gap-3">
+            <svg class="w-5 h-5 text-brand-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 16.920v3a2 2 0 01-2.180 2 19.790 19.790 0 01-8.630-3.070 19.500 19.500 0 01-6-6 19.790 19.790 0 01-3.070-8.670A2 2 0 014.110 2h3a2 2 0 012 1.720c.130.960.360 1.900.700 2.810a2 2 0 01-.450 2.110L8.090 9.910a16 16 0 006 6l1.270-1.270a2 2 0 012.110-.450c.910.340 1.850.570 2.810.700A2 2 0 0122 16.920z"/></svg>
+            <span><a href="tel:+628123456789" class="hover:text-brand-400 transition-colors">0812-3456-789</a> &middot; <a href="tel:+62211234567" class="hover:text-brand-400 transition-colors">(021) 123-4567</a></span>
+            <span><a href="#" data-tel="TELEPON_1" class="hover:text-brand-400 transition-colors">0812-3456-789</a> &middot; <a href="#" data-tel="TELEPON_2" class="hover:text-brand-400 transition-colors">(021) 123-4567</a></span>
+          </li>
+          <li class="flex gap-3">
+            <svg class="w-5 h-5 text-brand-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            <span>Buka setiap hari, 08.00 – 20.00</span>
+            <span data-isi="jam">Buka setiap hari, 08.00 – 20.00</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="rounded-2xl overflow-hidden shadow-xl ring-1 ring-white/10 h-72 md:h-full md:min-h-[18rem]">
+        <iframe
+          title="Lokasi Klinik Sehat"
+          src="https://www.google.com/maps?q=-6.2088,106.8456&z=15&output=embed"
+          id="peta"
+          title="Lokasi Klinik"
+          class="w-full h-full border-0"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="border-t border-white/10 text-center text-xs text-slate-500 py-5">
+      &copy; 2026 Klinik Sehat. Semua hak dilindungi.
+      &copy; 2026 <span data-isi="nama">Klinik Pramata Nani Medika</span>. Semua hak dilindungi.
+    </div>
+  </footer>
+
+  <!-- ================= FLOATING WHATSAPP ================= -->
+  <a href="https://wa.me/628123456789?text=Halo%20Admin,%20saya%20butuh%20bantuan"
+  <a href="#" data-wa="bantuan"
+     target="_blank" rel="noopener noreferrer" aria-label="Chat via WhatsApp"
+     class="fixed bottom-5 right-5 z-50 group">
+    <span class="absolute inset-0 rounded-full bg-green-400 opacity-75 animate-ping"></span>
+@@ -630,7 +678,7 @@ <h2 class="title">Pertanyaan yang sering diajukan</h2>
+    </span>
+  </a>
+
+  <!-- AOS + Menu -->
   <!-- AOS + Menu + Terapkan pengaturan KLINIK -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
-    // Animasi scroll (jika AOS gagal dimuat, konten tetap tampil & bisa diklik)
-    if (window.AOS) {
-      AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 60 });
-    } else {
-      document.querySelectorAll('[data-aos]').forEach(e => e.removeAttribute('data-aos'));
-    }
-
-    // Menu mobile
-    const btn = document.getElementById('menuBtn');
-    const menu = document.getElementById('mobileMenu');
-    const iconOpen = document.getElementById('iconOpen');
-    const iconClose = document.getElementById('iconClose');
-
-    function toggleMenu(forceClose = false) {
-      const isOpen = !menu.classList.contains('hidden');
-      const shouldOpen = forceClose ? false : !isOpen;
-      menu.classList.toggle('hidden', !shouldOpen);
-      iconOpen.classList.toggle('hidden', shouldOpen);
-      iconClose.classList.toggle('hidden', !shouldOpen);
-      btn.setAttribute('aria-expanded', shouldOpen);
+    AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 60 });
+@@ -651,6 +699,62 @@ <h2 class="title">Pertanyaan yang sering diajukan</h2>
     }
     btn.addEventListener('click', () => toggleMenu());
     menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(true)));
@@ -53,7 +194,7 @@
       // WhatsApp
       const waUtama = intl(K.WA_NOMOR);
       const waJanji = intl(K.WA_JANJI || K.WA_NOMOR);
-      window.KLINIK_WA_JANJI = waJanji;
+      window.KLINIK_WA_JANJI = waJanji; // dipakai oleh form janji temu
 
       const wa = {
         janji:   [waJanji, K.PESAN_JANJI],
@@ -82,251 +223,18 @@
     })();
   </script>
 
-  <!-- ================= STATUS + FORM JANJI + FIREBASE (script terpisah) ================= -->
-  <script>
-    (function () {
-      const K = window.KLINIK;
-      const intl = s => { let d = String(s).replace(/\D/g, ''); if (d.startsWith('0')) d = '62' + d.slice(1); return d; };
-      const WA = window.KLINIK_WA_JANJI || intl(K.WA_JANJI || K.WA_NOMOR);
-      const BUKA = K.JAM_BUKA, TUTUP = K.JAM_TUTUP;
+  <!-- ================= FIREBASE + STATUS + FORM JANJI ================= -->
+@@ -674,10 +778,10 @@ <h2 class="title">Pertanyaan yang sering diajukan</h2>
+    let db = null;
+    try { db = getFirestore(app); } catch (err) { console.warn("Firestore tidak aktif:", err); }
 
-      /* ---------- DATA JADWAL DOKTER (ubah di sini bila jadwal berubah) ----------
-         Kunci hari: 0 = Minggu, 1 = Senin, ... 6 = Sabtu. Nilai: [jam mulai, jam selesai] */
-      const DOKTER = {
-        andi: { nama: "dr. Andi Rahman",      jam: { 1:[8,14], 2:[8,14], 3:[8,14], 4:[14,20], 5:[14,20], 6:[8,12] } },
-        siti: { nama: "drg. Siti Wulandari",  jam: { 1:[10,16], 3:[10,16], 5:[10,16], 2:[15,20], 4:[15,20] } }
-      };
-
-      /* ---------- FIREBASE (dimuat terpisah; kalau gagal, form tetap jalan) ---------- */
-      const firebaseConfig = {
-        apiKey: "AIzaSyDp4sRoFKh_6EnuINbaPxCeq75izHw6FaE",
-        authDomain: "klinik-bidan-lulu-1b7d6.firebaseapp.com",
-        projectId: "klinik-bidan-lulu-1b7d6",
-        storageBucket: "klinik-bidan-lulu-1b7d6.firebasestorage.app",
-        messagingSenderId: "830365339294",
-        appId: "1:830365339294:web:4017707ca15aa532fe758f",
-        measurementId: "G-LW93LEMVKM"
-      };
-
-      let fbPromise = null;
-      function getFirebase() {
-        if (!fbPromise) {
-          fbPromise = (async () => {
-            const base = "https://www.gstatic.com/firebasejs/11.0.2/";
-            const { initializeApp } = await import(base + "firebase-app.js");
-            const { getFirestore, collection, addDoc, serverTimestamp } = await import(base + "firebase-firestore.js");
-            const app = initializeApp(firebaseConfig);
-            import(base + "firebase-analytics.js")
-              .then(m => m.getAnalytics(app))
-              .catch(err => console.warn("Firebase Analytics tidak aktif:", err));
-            return { db: getFirestore(app), collection, addDoc, serverTimestamp };
-          })();
-          fbPromise.catch(() => { fbPromise = null; }); // boleh dicoba lagi nanti
-        }
-        return fbPromise;
-      }
-      getFirebase().catch(err => console.warn("Firebase belum bisa dimuat:", err));
-
-      const tunggu = (p, ms) => Promise.race([p, new Promise((_, rej) => setTimeout(() => rej(new Error("timeout")), ms))]);
-
-      /* ---------- WAKTU (zona WIB) ---------- */
-      const HARI = { Sun:0, Mon:1, Tue:2, Wed:3, Thu:4, Fri:5, Sat:6 };
-      function sekarang() {
-        const p = new Intl.DateTimeFormat("en-US", {
-          timeZone: "Asia/Jakarta", weekday: "short", year: "numeric", month: "2-digit",
-          day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23"
-        }).formatToParts(new Date());
-        const g = t => p.find(x => x.type === t).value;
-        return { hari: HARI[g("weekday")], jam: +g("hour") + (+g("minute")) / 60, tgl: `${g("year")}-${g("month")}-${g("day")}` };
-      }
-      const fmt = h => { const j = Math.floor(h), m = Math.round((h - j) * 60); return String(j).padStart(2, "0") + "." + String(m).padStart(2, "0"); };
-
-      /* ---------- BADGE BUKA/TUTUP & STATUS DOKTER ---------- */
-      const dot = document.getElementById("statusDot");
-      const statusText = document.getElementById("statusText");
-
-      function updateStatus() {
-        const n = sekarang();
-        const buka = n.jam >= BUKA && n.jam < TUTUP;
-        dot.className = "w-2 h-2 rounded-full " + (buka ? "bg-green-500 animate-pulse" : "bg-slate-400");
-        statusText.textContent = buka
-          ? `Buka sekarang · tutup ${fmt(TUTUP)}`
-          : `Sedang tutup · buka ${n.jam < BUKA ? "hari ini" : "besok"} ${fmt(BUKA)}`;
-
-        document.querySelectorAll("[data-status]").forEach(badge => {
-          const r = DOKTER[badge.dataset.status].jam[n.hari];
-          let cls, txt;
-          if (!r)                                   { cls = "bg-slate-100 text-slate-500"; txt = "Tidak praktik hari ini"; }
-          else if (n.jam >= r[0] && n.jam < r[1])   { cls = "bg-green-100 text-green-700"; txt = `Sedang praktik hingga ${fmt(r[1])}`; }
-          else if (n.jam < r[0])                    { cls = "bg-amber-100 text-amber-700"; txt = `Praktik hari ini ${fmt(r[0])} – ${fmt(r[1])}`; }
-          else                                      { cls = "bg-slate-100 text-slate-500"; txt = "Praktik hari ini sudah selesai"; }
-          badge.className = "inline-block text-xs font-semibold px-2.5 py-1 rounded-full " + cls;
-          badge.textContent = txt;
-        });
-      }
-      updateStatus();
-      setInterval(updateStatus, 60000);
-
-      /* ---------- FORM JANJI TEMU ---------- */
-      const f = document.getElementById("formJanji");
-      const el = f.elements;
-      const hint = document.getElementById("slotHint");
-      const errBox = document.getElementById("formError");
-      const btnKirim = document.getElementById("btnKirim");
-      const sukses = document.getElementById("formSukses");
-
-      // Kolom jebakan anti-spam: diganti namanya & dikosongkan supaya tidak terisi otomatis oleh browser
-      const jebakan = f.querySelector('input[aria-hidden="true"]');
-      if (jebakan) { jebakan.name = "kolom_jebakan"; jebakan.value = ""; }
-
-      // Batas tanggal: hari ini sampai 60 hari ke depan
-      (function () {
-        const [y, m, d] = sekarang().tgl.split("-").map(Number);
-        const iso = dt => `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, "0")}-${String(dt.getDate()).padStart(2, "0")}`;
-        el.tanggal.min = iso(new Date(y, m - 1, d));
-        el.tanggal.max = iso(new Date(y, m - 1, d + 60));
-      })();
-
-      function slotList(key, tgl) {
-        const [y, m, d] = tgl.split("-").map(Number);
-        const hari = new Date(y, m - 1, d).getDay();
-        const keys = key === "any" ? Object.keys(DOKTER) : [key];
-        const set = new Set();
-        keys.forEach(k => {
-          const r = DOKTER[k].jam[hari];
-          if (r) for (let t = r[0]; t < r[1]; t += 0.5) set.add(t);
-        });
-        let arr = [...set].sort((a, b) => a - b);
-        const n = sekarang();
-        if (tgl === n.tgl) arr = arr.filter(t => t >= n.jam + 0.5);
-        return arr;
-      }
-
-      function rentangTeks(key, tgl) {
-        const [y, m, d] = tgl.split("-").map(Number);
-        const hari = new Date(y, m - 1, d).getDay();
-        const keys = key === "any" ? Object.keys(DOKTER) : [key];
-        return keys.map(k => { const r = DOKTER[k].jam[hari]; return r ? `${DOKTER[k].nama}: ${fmt(r[0])} – ${fmt(r[1])}` : null; })
-                   .filter(Boolean).join(" · ");
-      }
-
-      function refreshSlots() {
-        const tgl = el.tanggal.value, dok = el.dokter.value;
-        if (!tgl) {
-          el.jam.innerHTML = '<option value="">Pilih tanggal dulu</option>';
-          hint.textContent = ""; hint.className = "sm:col-span-2 -mt-1 text-xs text-slate-500";
-          return;
-        }
-        const slots = slotList(dok, tgl);
-        if (!slots.length) {
-          el.jam.innerHTML = '<option value="">Tidak ada jam tersedia</option>';
-          hint.textContent = "Tidak ada jam praktik yang tersedia pada tanggal ini. Silakan pilih tanggal atau dokter lain.";
-          hint.className = "sm:col-span-2 -mt-1 text-xs font-medium text-amber-600";
-          return;
-        }
-        el.jam.innerHTML = '<option value="">Pilih jam</option>' + slots.map(t => `<option value="${fmt(t)}">${fmt(t)}</option>`).join("");
-        hint.textContent = "Jam praktik — " + rentangTeks(dok, tgl);
-        hint.className = "sm:col-span-2 -mt-1 text-xs text-slate-500";
-      }
-
-      // Pilih layanan -> saran dokter otomatis
-      el.layanan.addEventListener("change", () => {
-        const v = el.layanan.value;
-        if (v === "Poli Gigi") el.dokter.value = "siti";
-        else if (v === "Poli Umum") el.dokter.value = "andi";
-        else if (v) el.dokter.value = "any";
-        refreshSlots();
-      });
-      el.dokter.addEventListener("change", refreshSlots);
-      el.tanggal.addEventListener("change", refreshSlots);
-
-      const tampilError = msg => { errBox.textContent = msg; };
-
-      f.addEventListener("submit", async e => {
-        e.preventDefault();
-        tampilError("");
-        if (jebakan && jebakan.value) return; // terisi bot
-
-        const nama = el.nama.value.trim();
-        const hp = el.hp.value.replace(/[\s-]/g, "");
-        const layanan = el.layanan.value;
-        const dokKey = el.dokter.value;
-        const tgl = el.tanggal.value;
-        const jam = el.jam.value;
-        const keluhan = el.keluhan.value.trim();
-
-        if (nama.length < 3) return tampilError("Mohon isi nama lengkap Anda.");
-        if (!/^(\+62|62|0)8\d{8,12}$/.test(hp)) return tampilError("Nomor WhatsApp belum valid. Contoh: 081234567890.");
-        if (!layanan) return tampilError("Silakan pilih layanan.");
-        if (!tgl) return tampilError("Silakan pilih tanggal kunjungan.");
-        if (!jam) return tampilError("Silakan pilih jam kunjungan.");
-
-        const dokLabel = dokKey === "any" ? "Dokter yang tersedia" : DOKTER[dokKey].nama;
-        const [y, m, d] = tgl.split("-").map(Number);
-        const tglLabel = new Date(y, m - 1, d).toLocaleDateString("id-ID", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
-
-        btnKirim.disabled = true;
-        btnKirim.textContent = "Mengirim…";
-
-        try {
-          // 1) Simpan ke Firebase. Kalau gagal, alur WhatsApp tetap jalan.
-          let tersimpan = false;
-          try {
-            await tunggu((async () => {
-              const fb = await getFirebase();
-              await fb.addDoc(fb.collection(fb.db, "janji_temu"), {
-                nama, hp, layanan, dokter: dokLabel, tanggal: tgl, jam, keluhan,
-                status: "baru", sumber: "website", dibuat: fb.serverTimestamp()
-              });
-            })(), 7000);
-            tersimpan = true;
-          } catch (err) {
-            console.warn("Data belum tersimpan ke Firebase:", err);
-          }
-
-          // 2) Siapkan pesan WhatsApp
-          const pesan =
-            "Halo Admin, saya ingin buat janji temu.\n\n" +
-            `Nama: ${nama}\nNo. WA: ${hp}\nLayanan: ${layanan}\nDokter: ${dokLabel}\n` +
-            `Tanggal: ${tglLabel}\nJam: ${jam}` + (keluhan ? `\nKeluhan: ${keluhan}` : "");
-          document.getElementById("btnWa").href = `https://wa.me/${WA}?text=${encodeURIComponent(pesan)}`;
-
-          // 3) Tampilkan ringkasan
-          sukses.querySelector("h3").textContent = tersimpan
-            ? "Janji temu Anda sudah dicatat"
-            : "Satu langkah lagi untuk menyelesaikan janji";
-          sukses.querySelector("p").textContent = tersimpan
-            ? "Satu langkah lagi: kirim konfirmasi ke admin lewat WhatsApp."
-            : "Kirim detail janji Anda ke admin lewat WhatsApp agar jadwalnya bisa dikonfirmasi.";
-
-          const ring = document.getElementById("ringkasan");
-          ring.innerHTML = "";
-          [["Nama", nama], ["Layanan", layanan], ["Dokter", dokLabel], ["Jadwal", `${tglLabel}, ${jam}`]].forEach(([k, v]) => {
-            const li = document.createElement("li");
-            li.className = "flex justify-between gap-4";
-            const a = document.createElement("span"); a.className = "text-slate-500"; a.textContent = k;
-            const b = document.createElement("span"); b.className = "font-semibold text-slate-800 text-right"; b.textContent = v;
-            li.append(a, b); ring.append(li);
-          });
-
-          f.classList.add("hidden");
-          sukses.classList.remove("hidden");
-        } catch (err) {
-          console.error(err);
-          tampilError("Maaf, terjadi kendala. Silakan coba lagi atau hubungi admin lewat WhatsApp.");
-        } finally {
-          btnKirim.disabled = false;
-          btnKirim.textContent = "Kirim Janji Temu";
-        }
-      });
-
-      document.getElementById("btnUlang").addEventListener("click", () => {
-        f.reset();
-        refreshSlots();
-        sukses.classList.add("hidden");
-        f.classList.remove("hidden");
-      });
-    })();
-  </script>
-</body>
-</html>
+    /* ---------- DATA JADWAL (ubah di sini bila jadwal berubah) ----------
+    /* ---------- DATA JADWAL DOKTER (ubah di sini bila jadwal berubah) ----------
+       Kunci hari: 0 = Minggu, 1 = Senin, ... 6 = Sabtu. Nilai: [jam mulai, jam selesai] */
+    const WA = "628123456789";
+    const BUKA = 8, TUTUP = 20;
+    const WA = window.KLINIK_WA_JANJI;
+    const BUKA = window.KLINIK.JAM_BUKA, TUTUP = window.KLINIK.JAM_TUTUP;
+    const DOKTER = {
+      andi: { nama: "dr. Andi Rahman",      jam: { 1:[8,14], 2:[8,14], 3:[8,14], 4:[14,20], 5:[14,20], 6:[8,12] } },
+      siti: { nama: "drg. Siti Wulandari",  jam: { 1:[10,16], 3:[10,16], 5:[10,16], 2:[15,20], 4:[15,20] } }
